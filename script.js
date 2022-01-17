@@ -20,32 +20,56 @@ function playRound(playerSelection,computerSelection){
 
 }
 
-let counter = 1;
-let userScore = 0;
-let computerScore = 0;
-function game(){
-    while (counter <= 5) {
-        let playerSelection = prompt(`Round ${counter}: Rock, paper, scissors, shoot!`);
-        let computerSelection = computerPlay()
-        playRound(playerSelection, computerSelection);
-        if (result == "UserWins"){
-            console.log(`Round ${counter}: You win this round! ${playerSelection} beats ${computerSelection}`);
-            userScore++;
-        } else if (result == "Tie"){
-            console.log(`Round ${counter}: It's a tie round!`);
-        } else {
-            console.log(`Round ${counter}: You lose this round! ${computerSelection} beats ${playerSelection}`);
-            computerScore++;
-        }
-        counter++;
-    }
-    if (userScore >= computerScore){
-        console.log("You Win!");
-    }else if (userScore <= computerScore) {
-        console.log("You Lose!");
+function checkResult(result,playerSelection,computerSelection){
+    if (result == "UserWins"){
+        displayResult.textContent = `You win this round! ${playerSelection} beats ${computerSelection}`;
+        userScore++;
+    } else if (result == "Tie"){
+        displayResult.textContent = `It's a tie round!`;
     } else {
-        console.log("It's a tie!")
+        displayResult.textContent = `You lose this round! ${computerSelection} beats ${playerSelection}`;
+        computerScore++;
     }
+    container.appendChild(displayResult);
+    displayYou.textContent = `${userScore}`;
+    displayComputer.textContent = `${computerScore}`;
 }
 
-game();
+function checkWinner(userScore, computerScore){
+    if (userScore === 5){
+      displayResult.textContent = 'Congratulations! You won!';
+        disableButtons();
+    }
+    if (computerScore === 5){
+      displayResult.textContent = `I'm sorry! You lost!`;
+        disableButtons();
+    }
+    container.appendChild(displayResult);
+}
+
+function disableButtons(){
+    document.getElementById("Rock").disabled = true;
+    document.getElementById("Paper").disabled = true;
+    document.getElementById("Scissors").disabled = true;
+}
+
+let userScore = 0;
+let computerScore = 0;
+
+const buttons = document.querySelectorAll('button');
+const container = document.querySelector('#container');
+const displayYou = document.querySelector('#displayYou');
+const displayComputer = document.querySelector('#displayComputer');
+
+const displayResult = document.createElement('div');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+    let playerSelection= button.id;
+    let computerSelection = computerPlay();
+    playRound(playerSelection, computerSelection);
+    checkResult(result,playerSelection,computerSelection);
+    checkWinner(userScore, computerScore);
+    });
+  
+});

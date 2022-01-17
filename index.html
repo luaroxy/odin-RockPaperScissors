@@ -3,9 +3,32 @@
 <head>
     <title>Page Title</title>
     <meta charset="UTF-8"/>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="title">Rock, Paper, Scissors</div>
+    <div class="subtitle">First to 5 wins. Good luck!</div>
+
+    <div class="display">
+        <div class="displayYou">
+            <div id="displayYou"></div>
+            <div>You</div>
+        </div>
+        <div class=displayComputer>
+            <div id="displayComputer"></div>
+            <div>Computer</div>
+        </div>
+    </div>
+
+    <div id="container"></div>
+
+    <div class=buttons>
+        <button id="Rock"> <img src="images/rock.png" height="120px" width="120px"/>  </button>
+        <button id="Paper"> <img src="images/paper.png" height="120px" width="120px"/> </button>
+        <button id="Scissors"> <img src="images/scissor.png" height="120px" width="120px"/> </button>
+    </div>
+
     
 </body>
 </html>
